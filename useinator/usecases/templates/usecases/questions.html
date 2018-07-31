@@ -1,0 +1,118 @@
+{% extends 'usecases/base.html' %}
+
+
+
+{% block title %}
+Questions
+{% endblock %}
+
+{% block body %}
+<div class="container">
+	<h1>Smart Questionaire</h1>
+
+	<form id="smart-form">
+	{% for q in question %}
+		- {{ q.question_text }}
+
+			{% for r in result %}
+			{% if r.result_text == 'Yes' or r.result_text == 'No' or r.result_text == 'Credit' or r.result_text == 'Semester' %}
+
+			<div class="form-check">
+			  <input class="form-check-input" onclick="user_value('{{ r.result_id }}','{{ r.result_text }}', '{{ q.question_text }}')" type="radio" name="{{ q.question_id }}" id="{{ r.result_id }}">
+			  <label class="form-check-label" for="{{ r.result_id }}">
+			    {{ r.result_text }}
+			  </label>
+			</div>		
+			{% else %}			
+			<div class="form-check">
+			  <input class="form-check-input" onclick="checkSelect('{{ r.result_id }}', '{{ r.result_text }}', '{{ q.question_text }}')" type="checkbox" name="{{ q.question_id }}" id="{{ r.result_id }}" value="{{ r.result_id }}">
+			  <label class="form-check-label" for="{{ r.result_id }}">
+			    {{ r.result_text }}
+			  </label>
+			</div>
+			{% endif %}
+			{% endfor %}
+			
+			<div class="row center">
+				<button type="button" id="nextBtn" class="btn waves-effect waves-light orange" style="display: none;" onclick="submitBtn()">Next</button>
+			</div>
+
+		
+	{% endfor %}
+	{% if finish %}
+		<div class="row center">
+				<button type="button" id="nextBtn" class="btn waves-effect waves-light green" onclick="finishBtn()">Finish</button>
+			</div>
+	{% endif %}
+	</form>
+	
+	
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script type="text/javascript">
+	var values = [];
+	var resultText = [];
+	var other_val = 0;
+	function finishBtn() {
+		window.location = '/diagram/';
+	}
+	function user_value(result_id, result_text, question_text) {
+		other_val = result_id;
+		$.ajax({
+				type: 'POST',
+				url: '/create-usecase/quest/',
+				data: {
+					quest_text: question_text,
+					res_id: result_id,
+					res_text: result_text,
+					entity_list: other_val.toString(),
+					csrfmiddlewaretoken: '{{ csrf_token }}'
+				},
+				success:function(response) {
+					$('#smart-form').replaceWith($("#smart-form",response));
+				}
+			});
+			
+		}
+	
+	questionText = '';
+	resultId = 0;
+	
+	function checkSelect(result_id, result_text, question_text) {
+		resultId = result_id;
+		questionText = question_text;
+		$('#nextBtn').show();
+		checkbox = $('#'+result_id);
+		if(checkbox.is(':checked')) {
+			values.push(result_id);
+			resultText.push(result_text);
+		} else {
+			values = values.filter(function(e) { return e !== result_id });
+			resultText = resultText.filter(function(e) { return e !== result_text });
+		}
+	}
+	function submitBtn() {
+		
+		$.ajax({
+				type: 'POST',
+				url: '/create-usecase/quest/',
+				data: {
+					quest_text: questionText,
+					res_id: resultId,
+					res_text: resultText.toString(),
+					entity_list: values.toString(),
+					csrfmiddlewaretoken: '{{ csrf_token }}'
+				},
+				success:function(response) {
+					$('#smart-form').replaceWith($("#smart-form",response));
+					values = [];
+					resultText = [];
+				}
+			});
+	}
+	
+</script>
+{% endblock %}

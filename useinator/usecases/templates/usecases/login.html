@@ -1,0 +1,39 @@
+{% extends 'usecases/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+		<div class="container">
+			<div id="form" class="section">
+				<h4 class="header title">Login</h4>
+				<div class="row">
+					<form class="col s12" method="POST">
+						{% csrf_token %}
+						<div class="row center error">
+							{% if messages %}
+								{% for message in messages %}
+									{{ message }}
+								{% endfor %}
+							{% endif %}
+						</div>
+						<div class="row">
+					        <div class="input-field col m6 offset-m3 s12">
+					          <i class="material-icons prefix">account_circle</i>
+					          <input id="icon_prefix" name="username" type="text" class="validate" required>
+					          <label class="grey-text text-lighten-1" for="icon_prefix">Username</label>
+					        </div>
+					        <div class="input-field col m6 offset-m3 s12">
+					          <i class="material-icons prefix">vpn_key</i>
+					          <input id="icon_prefix" name="password" type="password" class="validate" required>
+					          <label class="grey-text text-lighten-1" for="icon_prefix">Password</label>
+					        </div>
+					    </div>
+					    <div class="row center">
+					    	<button type="submit" class="btn waves-effect waves-light orange"><i class="material-icons right">fingerprint</i>Login</button>
+					    </div>
+					</form>
+				</div>
+			</div>
+		</div>
+{% endblock %}
+

@@ -1,0 +1,25 @@
+{% extends 'usecases/base.html' %}
+
+
+
+{% block title %}
+{% for d in data %}
+{{ d.first_name }} {{ d.last_name }}
+{% endfor %}
+{% endblock %}
+
+{% block body %}
+{% for d in data %}
+
+	<div class="container">
+		<h5>{{ d.first_name }} {{ d.last_name }}</h5>
+		<ul>
+			<li>Username: {{ d.username }}</li>
+			<li>Email: {{ d.email }}</li>
+			<li>Last login: {{d.last_login}}</li>
+		</ul>
+	</div>
+
+{% endfor %}
+	
+{% endblock %}

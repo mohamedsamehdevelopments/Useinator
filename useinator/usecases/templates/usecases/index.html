@@ -1,0 +1,50 @@
+{% extends 'usecases/base.html' %}
+
+{% block title %} Welcome {% endblock %}
+
+{% block body %}
+	<main>
+		<div class="section">	
+			<div class="container">
+				<h1 class="header center orange-text">Useinator</h1>
+				<div class="row center">
+					<h5 class="header col s12 light">A modern system used to model software engineering diagrams</h5>
+				</div>
+				<div class="row center">
+					<a href="{% url 'register' %}" class="btn-large waves-effect waves-light orange">Getting Started</a>
+				</div>
+				<div class="row center">
+					<a href="{% url 'login' %}" class="btn waves-effect waves-light orange">Login</a>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="section">
+				<div class="row">
+					<div class="col s12 m4">
+						<div class="icon-block">
+							<h2 class="center orange-text"><i class="medium material-icons">flash_on</i></h2>
+							<h5 class="center">Speeds up Design</h5>
+							<p class="light">Donec imperdiet dignissim luctus. Nunc vel quam ut dui semper convallis. Vestibulum sit amet fringilla odio, quis tincidunt nulla. Donec mattis dolor non metus fringilla hendrerit. Morbi enim orci, accumsan ut dolor eu, dapibus porttitor lorem. Pellentesque non mauris sed enim facilisis dignissim. Nunc et pulvinar diam. Donec at finibus ipsum</p>
+						</div>
+					</div>
+					<div class="col s12 m4">
+						<div class="icon-block">
+							<h2 class="center orange-text"><i class="medium material-icons">settings</i></h2>
+							<h5 class="center">Easy to work with</h5>
+							<p class="light">Pellentesque laoreet quis turpis quis venenatis. Etiam et dolor sed nulla fringilla posuere. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean ac sapien justo. Aliquam viverra ligula non mauris facilisis, eget porta ex pellentesque. Phasellus vel venenatis tellus. In maximus erat ut quam congue ullamcorper.</p>
+						</div>
+					</div>
+					<div class="col s12 m4">
+						<div class="icon-block">
+							<h2 class="center orange-text"><i class="medium material-icons">group</i></h2>
+							<h5 class="center">User Experience Focused</h5>
+							<p class="light">Donec imperdiet dignissim luctus. Nunc vel quam ut dui semper convallis. Vestibulum sit amet fringilla odio, quis tincidunt nulla. Donec mattis dolor non metus fringilla hendrerit. Morbi enim orci, accumsan ut dolor eu, dapibus porttitor lorem. Pellentesque non mauris sed enim facilisis dignissim. Nunc et pulvinar diam. Donec at finibus ipsum.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}
+

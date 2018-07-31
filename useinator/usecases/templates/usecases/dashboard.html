@@ -1,0 +1,71 @@
+{% extends 'usecases/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+		<div class="container">
+			<h3>New Case?</h3>
+				<p>You will be asked series of questions and vola here is your Usecase</p>
+	  			<div id="sub-place" class="row center">
+	  				<a href="{% url 'create_usecase' %}" class="waves-effect waves-light btn orange">Create UseCase</a>
+	  			</div>
+				<hr>
+		
+
+		{% for d in data %}
+		<div class="row">
+	    <div class="col s12 m6">
+	      <div class="card blue-grey darken-1">
+	        <div class="card-content white-text">
+	          <span class="card-title">{{ d.project_name }}</span>
+	        </div>
+	        <div class="card-action">
+	        	<form>
+	        		<input type="hidden" value="{{ d.project_id }}">
+	        		<button onclick="openBtn('{{ d.project_id }}')" type="submit">open</button>
+	        	</form>
+	          
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	  {% endfor %}
+	  </div>
+{% endblock %}
+
+{% block script %}
+	<script type="text/javascript">
+		// $(document).ready(function(){
+		// 	$('#list').change(function(e){
+		// 		e.preventDefault();
+		// 		var case_name = $('#case_name').val();
+		// 		if (case_name !== '') {
+		// 			$.ajax({
+		// 				type: 'POST',
+		// 				url: '/dashboard/',
+		// 				data: {
+		// 					usecase_name: case_name,
+		// 					category: $('#list').val(),
+		// 					csrfmiddlewaretoken: '{{ csrf_token }}'
+		// 				}
+		// 			});
+		// 		} else {
+		// 			alert('Fill the Case name Field.');
+		// 		}
+		// 	});
+		// });
+		function openBtn(project_id) {
+			$.ajax({
+				type: 'POST',
+				url: '/dashboard/',
+				data: {
+					proj_id: project_id,
+					csrfmiddlewaretoken: '{{ csrf_token }}'
+				},
+				success:function(response) {
+					window.location = '/diagram/';
+				}
+			});
+		}
+	</script>
+{% endblock %}

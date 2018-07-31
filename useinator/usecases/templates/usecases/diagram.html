@@ -1,0 +1,54 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		function goIntro() {
+			var g = go.GraphObject.make;
+			myDiagram = g(go.Diagram, "myDiagramDiv");
+			
+			{% for d in data %}
+			{% if d.answer_type == 1 %}
+			myDiagram.add(
+				g(go.Part, "Vertical",
+					
+					g(go.Picture, "{% static 'usecases/img/actor.png' %}"),
+					g(go.TextBlock, {text: "{{ d.answer_text }}", alignment: go.Spot.Center}),
+					)
+			);
+			{% endif %}
+			{% endfor %}
+
+			var y = go.GraphObject.make;
+			myDiagram1 = y(go.Diagram, "myDiagramDiv1");
+			{% for d in data %}
+			{% if d.answer_type == 2 %}
+			myDiagram1.add(
+				y(go.Part, "Position",
+					//y(go.Shape, "RoundedRectangle",{fill: "white"}),
+					
+					y(go.Shape, "RoundedRectangle", {fill:'white'}),
+					y(go.TextBlock, {text: "{{ d.answer_text }}", position: new go.Point(7.5,40)}),
+					)
+			);
+
+			{% endif %}
+			{% endfor %}
+
+		}
+	</script>
+</head>
+<body onload="goIntro()">
+<div id="myDiagramDiv" style=" width:400px; height: 500px; display: inline-block;">
+</div>
+
+<div id="myDiagramDiv1" style=" width:400px; height: 500px; display: inline-block;"  >
+</div>
+<br>
+<a type="button" style="padding: 10px ;color: white; text-decoration: none; background-color: red; border-radius: 5px; margin-left: 30px;" href="{% url 'dashboard' %}">Home</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.8.21/go-debug.js"></script>
+</body>
+</html>

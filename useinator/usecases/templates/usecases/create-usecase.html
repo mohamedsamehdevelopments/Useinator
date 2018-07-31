@@ -1,0 +1,109 @@
+{% extends 'usecases/base.html' %}
+
+{% block title %}New Usecase{% endblock %}
+
+{% block body %}
+<div class="container">
+	<h4>New Case?</h4>
+	<form>
+		
+		<h1>{{ project }}</h1>
+		<div class="row">
+			<div class="input-field col s6 offset-s3">
+				<div class="row">
+					<div class="col m2 s4">
+						<p>Case name</p>
+					</div>
+					<div class="col m10 s8">
+						<input id="usecase_name" type="text" name="usecase_name" placeholder="Case name">
+					</div>
+				</div>	
+	  		</div>
+			<div class="input-field col s6 offset-s3">
+				<select id="category-list">
+					<option value="" disabled selected>Choose your Category</option>
+					<option value="1">University/College</option>
+					<option value="2" disabled>Hospital</option>
+					<option value="3" disabled>Business Organizations</option>
+				</select>
+				<label>Categories</label>
+	  		</div>
+	  	</div>
+	  
+	  	<div id="subcategory-list" class="row">
+	  		<div class="col s6 offset-s3">
+	  			{% if data %}
+	  			<h6>Sub Category</h6>
+	  			{% for item in data %}
+				<div class="form-check">
+				  	<input class="form-check-input" onchange="subCategoryValue('{{ item.subcategory_name }}')" type="radio" name="sub-category" id="{{ item.subcategory_name }}" value="{{ item.subcategory_name }}">
+				  	<label class="form-check-label" for="{{ item.subcategory_name }}">
+				    {{ item.subcategory_name }}
+				  	</label>
+				</div>
+				{% endfor %}
+				{% endif %}
+	  		</div>
+	  	</div>
+		<div class="row center">
+			<button type="submit" id="nextBtn" class="btn waves-effect waves-light orange">Next</button>
+		</div>
+	</form>
+</div>
+{% endblock %}
+
+{% block script %}
+	<script type="text/javascript">
+		var flag = ''
+		function subCategoryValue(v) {
+				flag = v;
+				$('#nextBtn').show();
+			}
+		$(document).ready(function(){
+			$('#nextBtn').hide();
+			$('#category-list').change(function(e){
+				e.preventDefault();
+				if($('#usecase_name').val() !== '') {
+					$.ajax({
+						type: 'POST',
+						url: '/create-usecase/',
+						data: {
+							usecase_name: $('#usecase_name').val(),
+							category: $('#category-list').val(),
+							sub_category: '',
+							csrfmiddlewaretoken: '{{ csrf_token }}'
+						},
+						success:function(response) {
+							$('#subcategory-list').replaceWith($("#subcategory-list",response));
+						}
+					});
+				} else {
+					alert('Please fill the usecase field.')
+				}
+			});
+			
+		});
+		$('#nextBtn').click(function(e){
+			e.preventDefault();
+			$.ajax({
+				type: 'POST',
+				url: '/create-usecase/',
+				data: {
+					usecase_name: $('#usecase_name').val(),
+					category: $('#category-list').val(),
+					sub_category: flag,
+					csrfmiddlewaretoken: '{{ csrf_token }}'
+				},
+				success:function(response) {
+					
+					//console.log(window.location.href)
+					
+					window.location = '/create-usecase/quest/';
+					
+					$('#subcategory-list').replaceWith($("#subcategory-list",response));
+					//console.log("/create-usecase/%s/%s/%s/", $('#usecase_name').val(), $('#category-list').val(), flag);
+				}
+			})
+		});
+	</script>
+{% endblock %}

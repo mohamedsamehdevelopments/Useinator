@@ -1,0 +1,60 @@
+body {
+     display: flex;
+     min-height: 100vh;
+     flex-direction: column;
+ }
+
+ main {
+     flex: 1 0 auto;
+ }
+
+ nav {
+ 	background-color: #fff;
+ }
+
+ a.brand-logo {
+ 	color: #ff9800;
+ }
+
+ nav ul a {
+ 	color: #000;
+ }
+
+ #form {
+ 	margin-top: 80px;
+ }
+
+ input#icon_prefix.validate:focus {
+ 	border-bottom: 1px solid #ff9800;
+ 	box-shadow: 0 1px 0 0 #ff9800;
+ 	color: #ff9800;
+ }
+
+i.material-icons.prefix.active {
+	color: #ff9800;
+}
+
+.borders {
+	border: 1px solid #000;
+}
+
+input.focus {
+	border-bottom: 1px solid #ff9800;
+ 	box-shadow: 0 1px 0 0 #ff9800;
+	color: #ff9800;
+}
+ul.dropdown-content.select-dropdown li.disabled span {
+	color: #000;
+}
+ul.dropdown-content.select-dropdown li span {
+	color: #ff9800;
+}
+
+.card .card-image img {
+	max-width: 480px;
+	max-width: 480px;
+}
+
+.error {
+	color: red;
+}

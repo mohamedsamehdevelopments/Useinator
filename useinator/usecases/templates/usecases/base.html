@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Useinator | {% block title %} {% endblock %}</title>
+	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"> -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{% static 'usecases/css/materialize.css' %}" media="screen,projection">
+	<link rel="stylesheet" type="text/css" href="{% static 'usecases/css/custom.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+	<nav>
+		<div class="container">
+			<a href="{% url 'index' %}" class="brand-logo">Useinator</a>
+			{% if user.is_authenticated %}
+			<ul class="right hide-on-med-and-down black-text">
+				<li><a href="{% url 'profile' %}">Profile</a></li>
+				<li><a href="#">Settings</a></li>
+				<li><a href="{% url 'logout' %}">Logout</a></li>
+			</ul>
+			{% endif %}
+		</div>
+	</nav>
+	<main>
+		{% block body %}
+		{% endblock %}
+	</main>
+	{% if not user.is_authenticated %}
+	<footer class="page-footer orange">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text">Useinator Team</h5>
+					<p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container center">
+				Made By <a class="orange-text text-lighten-3">Abdullah</a> - <a class="orange-text text-lighten-3">Tomoum</a> - <a class="orange-text text-lighten-3">Nora</a> - <a class="orange-text text-lighten-3">Mohamed Sameh</a>
+			</div>
+		</div>
+	</footer>
+	{% else %}
+	<footer class="page-footer orange">
+		<div class="footer-copyright">
+			<div class="container center">
+				Made By <a class="orange-text text-lighten-3">Abdullah</a> - <a class="orange-text text-lighten-3">Tomoum</a> - <a class="orange-text text-lighten-3">Nora</a> - <a class="orange-text text-lighten-3">Mohamed Sameh</a>
+			</div>
+		</div>
+	</footer>
+	{% endif %}
+
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="{% static 'usecases/js/jquery.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'usecases/js/materialize.js' %}"></script>
+	<script type="text/javascript" src="{% static 'usecases/js/custom.js' %}"></script>
+	{% block script %}
+
+	{% endblock %}
+</body>
+</html>
